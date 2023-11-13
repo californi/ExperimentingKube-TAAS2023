@@ -1,4 +1,4 @@
-This Code is a customised version of Kubow (https://github.com/ppgia-unifor/kubow), providing experimentations for Adaptive Systems Approaches in SEAMS 2023 (https://conf.researchr.org/home/seams-2023)
+This Code is a customised version of Kubow (https://github.com/ppgia-unifor/kubow), providing experimentations for Adaptive Systems Approaches in TAAS 2023
 
 Cluster configurations - defining cluster (before of all, kubectl and minikube must be installed)
 
