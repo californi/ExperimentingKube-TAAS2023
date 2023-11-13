@@ -1,0 +1,25 @@
+11/06/23 07:54:50 - Generating 4 times. 
+11/06/23 07:57:18 - Deployments performed.
+11/06/23 08:00:16 - K6 deployed.
+11/06/23 08:00:30 - K6 running -- Initial data.
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+    Image:      cmendes/znn:800k
+11/06/23 08:08:30 - K6 finishing -- Peak data.
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+    Image:      cmendes/znn:800k
+11/06/23 08:11:37 - Generating 39 times. 
+11/06/23 08:12:15 - Generating 4 times. 
+11/06/23 08:14:44 - Deployments performed.
+11/06/23 08:17:45 - K6 deployed.
+11/06/23 08:17:56 - K6 running -- Initial data.
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+    Image:      cmendes/znn:800k
+11/06/23 08:25:56 - K6 finishing -- Peak data.
+Replicas:               3 desired | 1 updated | 4 total | 3 available | 1 unavailable
+    Image:      cmendes/znn:600k
+11/06/23 08:33:56 - K6 finised after unload -- Final data.
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+    Image:      cmendes/znn:800k
+11/06/23 08:33:56 - Restauration has finished.
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+    Image:      cmendes/znn:800k
