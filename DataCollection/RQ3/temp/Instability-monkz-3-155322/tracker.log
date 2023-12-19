@@ -1,0 +1,316 @@
+11/17/23 15:00:15 - Generating 3 times. 
+11/17/23 15:02:31 - Deployments performed.
+11/17/23 15:07:10 - K6 deployed.
+11/17/23 15:07:21 - K6 running -- Initial data.
+Name:                   kube-znn
+Namespace:              default
+CreationTimestamp:      Fri, 17 Nov 2023 15:02:28 -0300
+Labels:                 app=kube-znn
+                        version=v1
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=kube-znn,version=v1
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:       app=kube-znn
+                version=v1
+  Annotations:  prometheus.io/port: 9145
+                prometheus.io/scrape: true
+  Containers:
+   znn:
+    Image:      cmendes/znn:800k
+    Port:       9000/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     250m
+      memory:  100Mi
+    Environment:
+      DB_HOST:  kube-znn-db
+      DB_NAME:  znn
+      DB_PASS:  znn_pass
+    Mounts:
+      /var/www/html from shared-files (rw)
+   nginx:
+    Image:        openresty/openresty:alpine-fat
+    Ports:        80/TCP, 9145/TCP
+    Host Ports:   0/TCP, 0/TCP
+    Liveness:     http-get http://:80/liveness.php delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/readiness.php delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /etc/nginx/nginx-lua-prometheus/prometheus.lua from nginx-config-volume (rw,path="prometheus.lua")
+      /etc/nginx/nginx-lua-prometheus/prometheus_keys.lua from nginx-config-volume (rw,path="prometheus_keys.lua")
+      /etc/nginx/nginx-lua-prometheus/prometheus_resty_counter.lua from nginx-config-volume (rw,path="prometheus_resty_counter.lua")
+      /usr/local/openresty/nginx/conf/nginx.conf from nginx-config-volume (rw,path="nginx.conf")
+      /var/www/html from shared-files (rw)
+  Volumes:
+   shared-files:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+   nginx-config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      nginx-config-9dm8cm6k22
+    Optional:  false
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   kube-znn-5fb97667db (1/1 replicas created)
+Events:
+  Type    Reason             Age    From                   Message
+  ----    ------             ----   ----                   -------
+  Normal  ScalingReplicaSet  4m54s  deployment-controller  Scaled up replica set kube-znn-5fb97667db to 1
+11/17/23 15:15:22 - K6 finishing -- Peak data.
+Name:                   kube-znn
+Namespace:              default
+CreationTimestamp:      Fri, 17 Nov 2023 15:02:28 -0300
+Labels:                 app=kube-znn
+                        version=v1
+Annotations:            deployment.kubernetes.io/revision: 83
+Selector:               app=kube-znn,version=v1
+Replicas:               10 desired | 5 updated | 13 total | 8 available | 5 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:       app=kube-znn
+                version=v1
+  Annotations:  prometheus.io/port: 9145
+                prometheus.io/scrape: true
+  Containers:
+   znn:
+    Image:      cmendes/znn:400k
+    Port:       9000/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     250m
+      memory:  100Mi
+    Environment:
+      DB_HOST:  kube-znn-db
+      DB_NAME:  znn
+      DB_PASS:  znn_pass
+    Mounts:
+      /var/www/html from shared-files (rw)
+   nginx:
+    Image:        openresty/openresty:alpine-fat
+    Ports:        80/TCP, 9145/TCP
+    Host Ports:   0/TCP, 0/TCP
+    Liveness:     http-get http://:80/liveness.php delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/readiness.php delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /etc/nginx/nginx-lua-prometheus/prometheus.lua from nginx-config-volume (rw,path="prometheus.lua")
+      /etc/nginx/nginx-lua-prometheus/prometheus_keys.lua from nginx-config-volume (rw,path="prometheus_keys.lua")
+      /etc/nginx/nginx-lua-prometheus/prometheus_resty_counter.lua from nginx-config-volume (rw,path="prometheus_resty_counter.lua")
+      /usr/local/openresty/nginx/conf/nginx.conf from nginx-config-volume (rw,path="nginx.conf")
+      /var/www/html from shared-files (rw)
+  Volumes:
+   shared-files:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+   nginx-config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      nginx-config-9dm8cm6k22
+    Optional:  false
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  kube-znn-5fb97667db (8/8 replicas created)
+NewReplicaSet:   kube-znn-f8d56c578 (5/5 replicas created)
+Events:
+  Type    Reason             Age                     From                   Message
+  ----    ------             ----                    ----                   -------
+  Normal  ScalingReplicaSet  12m                     deployment-controller  Scaled up replica set kube-znn-5fb97667db to 1
+  Normal  ScalingReplicaSet  7m51s                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 2
+  Normal  ScalingReplicaSet  7m48s                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 3
+  Normal  ScalingReplicaSet  7m43s                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 4
+  Normal  ScalingReplicaSet  7m38s                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 5
+  Normal  ScalingReplicaSet  7m33s                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 6
+  Normal  ScalingReplicaSet  7m28s                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 7
+  Normal  ScalingReplicaSet  7m23s                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 8
+  Normal  ScalingReplicaSet  7m18s                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 9
+  Normal  ScalingReplicaSet  6m39s                   deployment-controller  Scaled up replica set kube-znn-f8d56c578 to 5
+  Normal  ScalingReplicaSet  2m38s (x70 over 7m13s)  deployment-controller  (combined from similar events): Scaled up replica set kube-znn-6978979d84 to 3
+11/17/23 15:23:22 - K6 finised after unload -- Final data.
+Name:                   kube-znn
+Namespace:              default
+CreationTimestamp:      Fri, 17 Nov 2023 15:02:28 -0300
+Labels:                 app=kube-znn
+                        version=v1
+Annotations:            deployment.kubernetes.io/revision: 125
+Selector:               app=kube-znn,version=v1
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:       app=kube-znn
+                version=v1
+  Annotations:  prometheus.io/port: 9145
+                prometheus.io/scrape: true
+  Containers:
+   znn:
+    Image:      cmendes/znn:800k
+    Port:       9000/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     250m
+      memory:  100Mi
+    Environment:
+      DB_HOST:  kube-znn-db
+      DB_NAME:  znn
+      DB_PASS:  znn_pass
+    Mounts:
+      /var/www/html from shared-files (rw)
+   nginx:
+    Image:        openresty/openresty:alpine-fat
+    Ports:        80/TCP, 9145/TCP
+    Host Ports:   0/TCP, 0/TCP
+    Liveness:     http-get http://:80/liveness.php delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/readiness.php delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /etc/nginx/nginx-lua-prometheus/prometheus.lua from nginx-config-volume (rw,path="prometheus.lua")
+      /etc/nginx/nginx-lua-prometheus/prometheus_keys.lua from nginx-config-volume (rw,path="prometheus_keys.lua")
+      /etc/nginx/nginx-lua-prometheus/prometheus_resty_counter.lua from nginx-config-volume (rw,path="prometheus_resty_counter.lua")
+      /usr/local/openresty/nginx/conf/nginx.conf from nginx-config-volume (rw,path="nginx.conf")
+      /var/www/html from shared-files (rw)
+  Volumes:
+   shared-files:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+   nginx-config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      nginx-config-9dm8cm6k22
+    Optional:  false
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   kube-znn-5fb97667db (1/1 replicas created)
+Events:
+  Type    Reason             Age                   From                   Message
+  ----    ------             ----                  ----                   -------
+  Normal  ScalingReplicaSet  20m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 1
+  Normal  ScalingReplicaSet  15m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 2
+  Normal  ScalingReplicaSet  15m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 3
+  Normal  ScalingReplicaSet  15m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 4
+  Normal  ScalingReplicaSet  15m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 5
+  Normal  ScalingReplicaSet  15m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 6
+  Normal  ScalingReplicaSet  15m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 7
+  Normal  ScalingReplicaSet  15m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 8
+  Normal  ScalingReplicaSet  15m                   deployment-controller  Scaled up replica set kube-znn-5fb97667db to 9
+  Normal  ScalingReplicaSet  14m                   deployment-controller  Scaled up replica set kube-znn-f8d56c578 to 5
+  Normal  ScalingReplicaSet  5m18s (x98 over 15m)  deployment-controller  (combined from similar events): Scaled up replica set kube-znn-6978979d84 to 1
+  Normal  ScalingReplicaSet  38s (x12 over 5m13s)  deployment-controller  Scaled up replica set kube-znn-6978979d84 to 1
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+kube-znn   1/1     1            1           20m
+NAME                                 READY   STATUS      RESTARTS   AGE
+failuremanager-ccc6cc495-2fb2n       1/1     Running     0          20m
+failuremonitor-68dd6cfd46-kcssx      1/1     Running     0          20m
+grafana-65787bb97f-9tfld             1/1     Running     0          20m
+k6-jls6d                             0/1     Completed   0          16m
+kube-state-metrics-d4dff4b7c-kcjdm   1/1     Running     0          20m
+kube-znn-5fb97667db-fddd7            2/2     Running     0          6m32s
+kube-znn-db-6dd8968475-w5zps         1/1     Running     0          20m
+kubow-77f8dc498d-2t47n               1/1     Running     0          20m
+nginx-ingress-8558d96667-ccc5w       1/1     Running     0          20m
+prometheus-ffc965799-2hbv4           1/1     Running     0          20m
+Name:                   kube-znn
+Namespace:              default
+CreationTimestamp:      Fri, 17 Nov 2023 15:02:28 -0300
+Labels:                 app=kube-znn
+                        version=v1
+Annotations:            deployment.kubernetes.io/revision: 287
+Selector:               app=kube-znn,version=v1
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:       app=kube-znn
+                version=v1
+  Annotations:  prometheus.io/port: 9145
+                prometheus.io/scrape: true
+  Containers:
+   znn:
+    Image:      cmendes/znn:800k
+    Port:       9000/TCP
+    Host Port:  0/TCP
+    Limits:
+      cpu:     250m
+      memory:  100Mi
+    Environment:
+      DB_HOST:  kube-znn-db
+      DB_NAME:  znn
+      DB_PASS:  znn_pass
+    Mounts:
+      /var/www/html from shared-files (rw)
+   nginx:
+    Image:        openresty/openresty:alpine-fat
+    Ports:        80/TCP, 9145/TCP
+    Host Ports:   0/TCP, 0/TCP
+    Liveness:     http-get http://:80/liveness.php delay=0s timeout=1s period=10s #success=1 #failure=3
+    Readiness:    http-get http://:80/readiness.php delay=0s timeout=1s period=10s #success=1 #failure=3
+    Environment:  <none>
+    Mounts:
+      /etc/nginx/nginx-lua-prometheus/prometheus.lua from nginx-config-volume (rw,path="prometheus.lua")
+      /etc/nginx/nginx-lua-prometheus/prometheus_keys.lua from nginx-config-volume (rw,path="prometheus_keys.lua")
+      /etc/nginx/nginx-lua-prometheus/prometheus_resty_counter.lua from nginx-config-volume (rw,path="prometheus_resty_counter.lua")
+      /usr/local/openresty/nginx/conf/nginx.conf from nginx-config-volume (rw,path="nginx.conf")
+      /var/www/html from shared-files (rw)
+  Volumes:
+   shared-files:
+    Type:       EmptyDir (a temporary directory that shares a pod's lifetime)
+    Medium:     
+    SizeLimit:  <unset>
+   nginx-config-volume:
+    Type:      ConfigMap (a volume populated by a ConfigMap)
+    Name:      nginx-config-9dm8cm6k22
+    Optional:  false
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   kube-znn-5fb97667db (1/1 replicas created)
+Events:
+  Type    Reason             Age                 From                   Message
+  ----    ------             ----                ----                   -------
+  Normal  ScalingReplicaSet  50m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 1
+  Normal  ScalingReplicaSet  45m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 2
+  Normal  ScalingReplicaSet  45m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 3
+  Normal  ScalingReplicaSet  45m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 4
+  Normal  ScalingReplicaSet  45m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 5
+  Normal  ScalingReplicaSet  45m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 6
+  Normal  ScalingReplicaSet  45m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 7
+  Normal  ScalingReplicaSet  45m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 8
+  Normal  ScalingReplicaSet  45m                 deployment-controller  Scaled up replica set kube-znn-5fb97667db to 9
+  Normal  ScalingReplicaSet  44m                 deployment-controller  Scaled up replica set kube-znn-f8d56c578 to 5
+  Normal  ScalingReplicaSet  35m (x98 over 45m)  deployment-controller  (combined from similar events): Scaled up replica set kube-znn-6978979d84 to 1
+  Normal  ScalingReplicaSet  23s (x94 over 35m)  deployment-controller  Scaled up replica set kube-znn-6978979d84 to 1
+NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+kube-znn   1/1     1            1           50m
+NAME                                 READY   STATUS      RESTARTS   AGE
+failuremanager-ccc6cc495-2fb2n       1/1     Running     0          50m
+failuremonitor-68dd6cfd46-kcssx      1/1     Running     0          50m
+grafana-65787bb97f-9tfld             1/1     Running     0          50m
+k6-jls6d                             0/1     Completed   0          46m
+kube-state-metrics-d4dff4b7c-kcjdm   1/1     Running     0          50m
+kube-znn-5fb97667db-fddd7            2/2     Running     0          36m
+kube-znn-db-6dd8968475-w5zps         1/1     Running     0          50m
+kubow-77f8dc498d-2t47n               1/1     Running     0          50m
+nginx-ingress-8558d96667-ccc5w       1/1     Running     0          50m
+prometheus-ffc965799-2hbv4           1/1     Running     0          50m

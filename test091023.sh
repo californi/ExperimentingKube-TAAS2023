@@ -1,7 +1,7 @@
 #minikube delete
 #minikube start --cpus=5 --memory=8192 --vm-driver hyperv --kubernetes-version=v1.16.10
  
-kubectl create secret docker-registry regcred --docker-username=******* --docker-password=***** --docker-email=******* -n default
+#kubectl create secret docker-registry regcred --docker-username=******* --docker-password=***** --docker-email=******* -n default
 
 ### MON KZ
 #kubectl apply -f ./VersionC-WithFailureManagerMetaController/MetaController/priorityObjectsK8s/

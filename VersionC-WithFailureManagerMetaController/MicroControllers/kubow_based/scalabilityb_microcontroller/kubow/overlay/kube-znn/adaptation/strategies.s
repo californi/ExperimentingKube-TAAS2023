@@ -31,7 +31,7 @@ strategy ReduceCost [ sloGreen ] {
 }
 
 strategy AdjustDefaultReplicas [ mismatchingReplicas ] {
-  t0: (mismatchingReplicas) -> adjustReplicas() @[45000 /*ms*/] {
+  t0: (mismatchingReplicas) -> adjustReplicas() @[65000 /*ms*/] {
     t0a: (success) -> done;
   }
   t1: (default) -> TNULL;

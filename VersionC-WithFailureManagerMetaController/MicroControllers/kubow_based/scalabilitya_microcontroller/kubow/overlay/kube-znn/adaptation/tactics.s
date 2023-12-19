@@ -39,7 +39,7 @@ tactic adjustReplicas(){
   action {
     M.scaleDown(M.kubeZnnD, scalingDown);
   }
-  effect @[35000] {
+  effect @[45000] {
     M.kubeZnnD.maxReplicas > M.kubeZnnD.desiredReplicas;
   }
 

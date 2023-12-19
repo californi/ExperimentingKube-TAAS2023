@@ -34,7 +34,7 @@ tactic addReplica() {
   action {
     M.scaleUp(M.kubeZnnD, 1);
   }
-  effect @[10000] {
+  effect @[35000] {
     futureReplicas == M.kubeZnnD.desiredReplicas;
   }
 }
